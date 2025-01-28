@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { doc, getDocs, addDoc, updateDoc, getFirestore, collection } from "firebase/firestore";
+import log from "loglevel";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDEToSo5Gzs1ORPI2-b3aV2ZchO56-UZWc",
@@ -88,3 +89,24 @@ taskList.addEventListener('click', (e) => {
             e.target.remove();
     }
 });
+
+// Set the log level (trace, debug, info, warn, error)
+log.setLevel("info");
+// Example logs
+log.info("Application started");
+log.debug("Debugging information");
+log.error("An error occurred");
+
+//logging user interactions
+function addTask(task) {
+    try {
+        //log user action
+        log.info(`Task added: ${task}`);
+        //add task to the list
+        taskList.push(task);
+        renderTasks();
+    } catch (error) {
+        //log error
+        log.error("Error adding task", error)
+    }
+}
